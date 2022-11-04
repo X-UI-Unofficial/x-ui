@@ -21,10 +21,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 1
-      - name: GoLang 1.19.2
+      - name: GoLang 1.x.y
         uses: actions/setup-go@v3
         with:
-          go-version: '^1.19.2' # The Go version to download (if necessary) and use.
+          go-version: '^1.19.3' # The Go version to download (if necessary) and use.
       - name: Start Setup
         run: |
           sudo apt-get update
@@ -36,7 +36,21 @@ jobs:
           cd web
           ln -sf ../translation translation
           cd ..
-          ln -sf bin/build build
+      - name: Golang upgrade module
+        run: |
+          go mod tidy
+          go get -u
+          go mod download
+      - name: Start push GoLang module
+        run: |
+          git config --local user.name "dopaemon"
+          git config --local user.email "polarisdp@gmail.com"
+          git remote rm origin
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUBTOKEN }}@github.com/${{ github.repository }}"
+          git gc --aggressive
+          git add --all
+          git commit -m "GoLang: Upgrade GoMod$(date +%Y%m%d%H%M)"
+          git push -f -u origin main
       - name: Start Building X-UI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
