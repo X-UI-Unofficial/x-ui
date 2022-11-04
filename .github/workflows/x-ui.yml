@@ -37,8 +37,6 @@ jobs:
           export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/ssh.key"
           git submodule update --init
           git submodule update --recursive --remote
-          cd web
-          ln -sf ../translation translation
           cd ..
       - name: Golang upgrade module
         run: |
@@ -65,4 +63,5 @@ jobs:
           rm -rf translation/.placeholder
           rm -rf bin/.placeholder
           rm -rf web/.placeholder
+          mv translation web/translation
           ./build
