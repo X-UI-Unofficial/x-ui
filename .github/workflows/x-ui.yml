@@ -59,4 +59,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          rm -rf translation/.git
+          rm -rf bin/.git
+          rm -rf web/.git
           ./build
