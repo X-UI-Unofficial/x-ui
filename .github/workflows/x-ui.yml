@@ -31,6 +31,10 @@ jobs:
           sudo apt-get install -yq gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu
       - name: Start Setup Submodule
         run: |
+          mkdir -p $HOME/.ssh
+          echo '${{ secrets.SUBMODULE_REPO_DEPLOY_KEY }}' > $HOME/.ssh/ssh.key
+          chmod 600 $HOME/.ssh/ssh.key
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/ssh.key"
           git submodule update --init
           git submodule update --recursive --remote
           cd web
