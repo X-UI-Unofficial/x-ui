@@ -29,9 +29,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -yq gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu
+      - name: Start Setup Submodule
+        run: |
+          git submodule update --init
+          git submodule update --recursive --remote
+          ln -sf translation web/translation
+          ln -sf bin/build build
       - name: Start Building X-UI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ln -sf bin/build build
           ./build
