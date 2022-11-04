@@ -53,7 +53,7 @@ jobs:
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUBTOKEN }}@github.com/${{ github.repository }}"
           git gc --aggressive
           git add --all
-          git commit -m --allow-empty "GoLang: Upgrade go mod $(date +%Y%m%d%H%M)"
+          git commit -s --allow-empty -m "GoLang: Upgrade go mod $(date +%Y%m%d%H%M)"
           git push -f -u origin main
       - name: Start Building X-UI
         env:
