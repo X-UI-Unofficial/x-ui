@@ -33,7 +33,9 @@ jobs:
         run: |
           git submodule update --init
           git submodule update --recursive --remote
-          ln -sf translation web/translation
+          cd web
+          ln -sf ../translation translation
+          cd ..
           ln -sf bin/build build
       - name: Start Building X-UI
         env:

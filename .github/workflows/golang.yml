@@ -13,11 +13,13 @@ jobs:
       - name: Checkout codebase
         uses: actions/checkout@main
 
-     - name: Start Setup Submodule
+      - name: Start Setup Submodule
         run: |
           git submodule update --init
           git submodule update --recursive --remote
-          ln -sf translation web/translation
+          cd web
+          ln -sf ../translation translation
+          cd ..
           ln -sf bin/build build
       - name: go
         run: |
