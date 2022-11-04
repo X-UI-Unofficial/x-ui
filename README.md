@@ -17,7 +17,7 @@
 # Install & Upgrade
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/dopaemon/X-UI-Unofficial/main/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/X-UI-Unofficial/x-ui/main/install.sh)
 ```
 
 ## Manual install & upgrade
@@ -140,4 +140,4 @@ All kinds of white problems see high blood pressure
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/dopaemon/X-UI-Unofficial.svg)](https://starchart.cc/dopaemon/X-UI-Unofficial)
+[![Stargazers over time](https://starchart.cc/X-UI-Unofficial/x-ui.svg)](https://starchart.cc/X-UI-Unofficial/x-ui)

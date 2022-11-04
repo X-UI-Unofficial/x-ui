@@ -111,20 +111,20 @@ install_x-ui() {
     cd /usr/local/
 
     if [ $# == 0 ]; then
-        last_version=$(curl -Ls "https://api.github.com/repos/dopaemon/X-UI-Unofficial/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        last_version=$(curl -Ls "https://api.github.com/repos/X-UI-Unofficial/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         if [[ ! -n "$last_version" ]]; then
             echo -e "${red}The failure of the X-UI version may be beyond the GitHub API limit, please try it later, or manually specify the X-UI version installation${plain}"
             exit 1
         fi
         echo -e "detected x-ui The latest version of: ${last_version}, start installation"
-        wget -N --no-check-certificate -O /usr/local/x-ui-linux-${arch}.tar.gz https://github.com/dopaemon/X-UI-Unofficial/releases/download/${last_version}/x-ui-linux-${arch}.tar.gz
+        wget -N --no-check-certificate -O /usr/local/x-ui-linux-${arch}.tar.gz https://github.com/X-UI-Unofficial/x-ui/releases/download/${last_version}/x-ui-linux-${arch}.tar.gz
         if [[ $? -ne 0 ]]; then
             echo -e "${red}Failed to download x-ui, please make sure your server can download Github files${plain}"
             exit 1
         fi
     else
         last_version=$1
-        url="https://github.com/dopaemon/X-UI-Unofficial/releases/download/${last_version}/x-ui-linux-${arch}.tar.gz"
+        url="https://github.com/X-UI-Unofficial/x-ui/releases/download/${last_version}/x-ui-linux-${arch}.tar.gz"
         echo -e "start installation x-ui v$1"
         wget -N --no-check-certificate -O /usr/local/x-ui-linux-${arch}.tar.gz ${url}
         if [[ $? -ne 0 ]]; then
@@ -142,7 +142,7 @@ install_x-ui() {
     cd x-ui
     chmod +x x-ui bin/xray-linux-${arch}
     cp -f x-ui.service /etc/systemd/system/
-    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com/dopaemon/X-UI-Unofficial/main/install.sh
+    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com/X-UI-Unofficial/x-ui/main/install.sh
     chmod +x /usr/local/x-ui/x-ui.sh
     chmod +x /usr/bin/x-ui
     if [[ $arch == "aarch64" || $arch == "arm64" ]]; then
