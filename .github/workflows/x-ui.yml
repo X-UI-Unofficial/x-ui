@@ -62,4 +62,7 @@ jobs:
           rm -rf translation/.git
           rm -rf bin/.git
           rm -rf web/.git
+          rm -rf translation/.placeholder
+          rm -rf bin/.placeholder
+          rm -rf web/.placeholder
           ./build
