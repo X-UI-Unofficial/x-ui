@@ -3,6 +3,7 @@ module x-ui
 go 1.16
 
 require (
+	github.com/go-cmd/cmd v1.4.1 // indirect
 	github.com/BurntSushi/toml v1.2.1
 	github.com/Workiva/go-datastructures v1.0.53
 	github.com/gin-contrib/sessions v0.0.5
