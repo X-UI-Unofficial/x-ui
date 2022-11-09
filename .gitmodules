@@ -1,9 +1,0 @@
-[submodule "bin"]
-	path = bin
-	url = git@github.com:X-UI-Unofficial/bin.git
-[submodule "web"]
-	path = web
-	url = git@github.com:X-UI-Unofficial/web.git
-[submodule "translation"]
-	path = translation
-	url = git@github.com:X-UI-Unofficial/translation.git
