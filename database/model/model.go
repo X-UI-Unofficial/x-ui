@@ -79,3 +79,9 @@ type Client struct {
 	TotalGB      int64  `json:"totalGB" form:"totalGB"`
 	ExpiryTime int64  `json:"expiryTime" form:"expiryTime"`
 }
+
+type Mirror struct {
+	Id   int    `json:"id" gorm:"primaryKey;autoIncrement"`
+	Ip   string `json:"ip"`
+	Port string `json:"port"`
+}
