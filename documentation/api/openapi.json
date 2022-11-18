@@ -1,0 +1,352 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Title",
+		"description": "Title",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "https"
+		}
+	],
+	"paths": {
+		"/xui/api/inbounds": {
+			"get": {
+				"tags": [
+					"Inbound"
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/ListResponse"
+										},
+										{
+											"properties": {
+												"data": {
+													"type": "array",
+													"items": {
+														"$ref": "#/components/schemas/InboundResponse"
+													}
+												}
+											}
+										}
+									]
+								}
+							}
+						},
+						"description": "list of inbounds"
+					},
+					"401": {
+						"$ref": "#/components/responses/Unauthenticated"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Inbound"
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateInboundRequestBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InboundResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/xui/api/inbounds/{inboundId}": {
+			"parameters": [
+				{
+					"in": "path",
+					"name": "inboundId",
+					"allowEmptyValue": false,
+					"schema": {
+						"type": "integer",
+						"nullable": false,
+						"minimum": 1
+					},
+					"required": true
+				}
+			],
+			"get": {
+				"tags": [
+					"Inbound"
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InboundResponse"
+								}
+							}
+						},
+						"description": "list of inbounds"
+					},
+					"401": {
+						"$ref": "#/components/responses/Unauthenticated"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFound"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Inbound"
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Message"
+								}
+							}
+						},
+						"description": "delete success message"
+					},
+					"401": {
+						"$ref": "#/components/responses/Unauthenticated"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"ListResponse": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"description": "items in the list",
+						"type": "array",
+						"nullable": false
+					}
+				},
+				"required": [
+					"data"
+				]
+			},
+			"InboundResponse": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"nullable": false
+					},
+					"user_id": {
+						"type": "integer",
+						"nullable": false
+					},
+					"up": {
+						"type": "integer",
+						"nullable": false
+					},
+					"down": {
+						"type": "integer",
+						"nullable": false
+					},
+					"total": {
+						"type": "integer",
+						"nullable": false
+					},
+					"remark": {
+						"type": "string",
+						"nullable": false
+					},
+					"enable": {
+						"type": "boolean",
+						"nullable": false
+					},
+					"expiry_time": {
+						"type": "integer",
+						"nullable": false,
+						"format": "timestamp"
+					},
+					"listen": {
+						"type": "string",
+						"nullable": false
+					},
+					"port": {
+						"type": "integer",
+						"nullable": false
+					},
+					"protocol": {
+						"$ref": "#/components/schemas/Protocols"
+					},
+					"settings": {
+						"type": "string",
+						"nullable": false,
+						"format": "json"
+					},
+					"stream_settings": {
+						"type": "string",
+						"nullable": false,
+						"format": "json"
+					},
+					"tag": {
+						"type": "string",
+						"nullable": false
+					},
+					"sniffing": {
+						"type": "string",
+						"nullable": false,
+						"format": "json"
+					}
+				},
+				"required": [
+					"id",
+					"user_id",
+					"up",
+					"down",
+					"total",
+					"remark",
+					"enable",
+					"expiry_time",
+					"listen",
+					"port",
+					"protocol",
+					"settings",
+					"stream_settings",
+					"tag",
+					"sniffing"
+				]
+			},
+			"Protocols": {
+				"type": "string",
+				"enum": [
+					"vmess",
+					"vless",
+					"trojan",
+					"shadowsocks",
+					"Dokodemo-door",
+					"socks",
+					"http"
+				]
+			},
+			"Message": {
+				"type": "object",
+				"properties": {
+					"message": {
+						"description": "message text",
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				]
+			},
+			"CreateInboundRequestBody": {
+				"type": "object",
+				"properties": {
+					"total": {
+						"type": "integer",
+						"nullable": true,
+						"description": "on null value is set to 0"
+					},
+					"remark": {
+						"type": "string",
+						"nullable": true
+					},
+					"enable": {
+						"type": "boolean",
+						"nullable": true,
+						"description": "on null value is set to true"
+					},
+					"expiry_time": {
+						"type": "integer",
+						"nullable": true,
+						"format": "timestamp",
+						"description": "on null value is set to 0"
+					},
+					"listen": {
+						"type": "string",
+						"nullable": true,
+						"format": "ip"
+					},
+					"port": {
+						"type": "integer",
+						"nullable": false
+					},
+					"protocol": {
+						"$ref": "#/components/schemas/Protocols"
+					},
+					"settings": {
+						"type": "string",
+						"format": "base64",
+						"nullable": false
+					},
+					"stream_settings": {
+						"type": "string",
+						"format": "base64",
+						"nullable": false
+					},
+					"sniffing": {
+						"type": "string",
+						"format": "base64",
+						"nullable": false
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"cookieAuth": {
+				"type": "apiKey",
+				"in": "cookie",
+				"name": "session"
+			}
+		},
+		"responses": {
+			"Unauthenticated": {
+				"description": "user is unauthenticated (needs login)",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/Message"
+						}
+					}
+				}
+			},
+			"Unauthorized": {
+				"description": "user is unauthorized to access the resource",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/Message"
+						}
+					}
+				}
+			},
+			"NotFound": {
+				"description": "resource not found",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/Message"
+						}
+					}
+				}
+			}
+		}
+	}
+}
