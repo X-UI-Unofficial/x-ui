@@ -11,6 +11,42 @@
 		}
 	],
 	"paths": {
+		"/login": {
+			"post": {
+				"tags": [
+					"Auth"
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginRequestBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Message"
+								}
+							}
+						},
+						"description": "login success message",
+						"headers": {
+							"Set-Cookie": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/xui/api/inbounds": {
 			"get": {
 				"tags": [
@@ -44,7 +80,12 @@
 					"401": {
 						"$ref": "#/components/responses/Unauthenticated"
 					}
-				}
+				},
+				"security": [
+					{
+						"cookieAuth": []
+					}
+				]
 			},
 			"post": {
 				"tags": [
@@ -68,9 +109,15 @@
 									"$ref": "#/components/schemas/InboundResponse"
 								}
 							}
-						}
+						},
+						"description": "created inbound"
 					}
-				}
+				},
+				"security": [
+					{
+						"cookieAuth": []
+					}
+				]
 			}
 		},
 		"/xui/api/inbounds/{inboundId}": {
@@ -108,7 +155,50 @@
 					"404": {
 						"$ref": "#/components/responses/NotFound"
 					}
-				}
+				},
+				"security": [
+					{
+						"cookieAuth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"Inbound"
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateInboundRequestBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InboundResponse"
+								}
+							}
+						},
+						"description": "updated value of inbound"
+					},
+					"401": {
+						"$ref": "#/components/responses/Unauthenticated"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFound"
+					}
+				},
+				"security": [
+					{
+						"cookieAuth": []
+					}
+				]
 			},
 			"delete": {
 				"tags": [
@@ -128,7 +218,12 @@
 					"401": {
 						"$ref": "#/components/responses/Unauthenticated"
 					}
-				}
+				},
+				"security": [
+					{
+						"cookieAuth": []
+					}
+				]
 			}
 		}
 	},
@@ -306,7 +401,101 @@
 						"format": "base64",
 						"nullable": false
 					}
-				}
+				},
+				"required": [
+					"total",
+					"remark",
+					"enable",
+					"expiry_time",
+					"listen",
+					"port",
+					"protocol",
+					"settings",
+					"stream_settings",
+					"sniffing"
+				]
+			},
+			"UpdateInboundRequestBody": {
+				"type": "object",
+				"properties": {
+					"total": {
+						"type": "integer",
+						"nullable": true,
+						"description": "on null value is set to 0"
+					},
+					"remark": {
+						"type": "string",
+						"nullable": true
+					},
+					"enable": {
+						"type": "boolean",
+						"nullable": true,
+						"description": "on null value is set to true"
+					},
+					"expiry_time": {
+						"type": "integer",
+						"nullable": true,
+						"format": "timestamp",
+						"description": "on null value is set to 0"
+					},
+					"listen": {
+						"type": "string",
+						"nullable": true,
+						"format": "ip"
+					},
+					"port": {
+						"type": "integer",
+						"nullable": false
+					},
+					"protocol": {
+						"$ref": "#/components/schemas/Protocols"
+					},
+					"settings": {
+						"type": "string",
+						"format": "base64",
+						"nullable": false
+					},
+					"stream_settings": {
+						"type": "string",
+						"format": "base64",
+						"nullable": false
+					},
+					"sniffing": {
+						"type": "string",
+						"format": "base64",
+						"nullable": false
+					}
+				},
+				"required": [
+					"total",
+					"remark",
+					"enable",
+					"expiry_time",
+					"listen",
+					"port",
+					"protocol",
+					"settings",
+					"stream_settings",
+					"sniffing"
+				]
+			},
+			"LoginRequestBody": {
+				"type": "object",
+				"properties": {
+					"username": {
+						"type": "string",
+						"nullable": false
+					},
+					"password": {
+						"type": "string",
+						"nullable": false,
+						"format": "password"
+					}
+				},
+				"required": [
+					"username",
+					"password"
+				]
 			}
 		},
 		"securitySchemes": {
