@@ -7,11 +7,22 @@
 	},
 	"servers": [
 		{
-			"url": "https"
+			"url": "http://localhost:54321"
 		}
 	],
 	"paths": {
 		"/login": {
+			"parameters": [
+				{
+					"in": "header",
+					"name": "Accept-Language",
+					"schema": {
+						"type": "string",
+						"nullable": false,
+						"example": "en"
+					}
+				}
+			],
 			"post": {
 				"tags": [
 					"Auth"
@@ -40,6 +51,16 @@
 							"Set-Cookie": {
 								"schema": {
 									"type": "string"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Message"
 								}
 							}
 						}
@@ -147,7 +168,7 @@
 								}
 							}
 						},
-						"description": "list of inbounds"
+						"description": "returns specified inbound"
 					},
 					"401": {
 						"$ref": "#/components/responses/Unauthenticated"
@@ -307,6 +328,12 @@
 						"type": "string",
 						"nullable": false,
 						"format": "json"
+					},
+					"client_statistics": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClientStatisticsResponse"
+						}
 					}
 				},
 				"required": [
@@ -324,7 +351,8 @@
 					"settings",
 					"stream_settings",
 					"tag",
-					"sniffing"
+					"sniffing",
+					"client_statistics"
 				]
 			},
 			"Protocols": {
@@ -337,6 +365,48 @@
 					"Dokodemo-door",
 					"socks",
 					"http"
+				]
+			},
+			"ClientStatisticsResponse": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"nullable": false
+					},
+					"enable": {
+						"type": "boolean",
+						"nullable": false
+					},
+					"email": {
+						"type": "string",
+						"nullable": false
+					},
+					"up": {
+						"type": "integer",
+						"nullable": false
+					},
+					"down": {
+						"type": "integer",
+						"nullable": false
+					},
+					"expiry_time": {
+						"type": "integer",
+						"nullable": false
+					},
+					"total": {
+						"type": "integer",
+						"nullable": false
+					}
+				},
+				"required": [
+					"id",
+					"enable",
+					"email",
+					"up",
+					"down",
+					"expiry_time",
+					"total"
 				]
 			},
 			"Message": {
