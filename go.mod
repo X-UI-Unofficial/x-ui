@@ -14,7 +14,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/samber/lo v1.37.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
-	github.com/xtls/xray-core v1.7.0
+	github.com/xtls/xray-core v1.7.2
 	go.uber.org/atomic v1.10.0
 	golang.org/x/text v0.6.0
 	google.golang.org/grpc v1.51.0
