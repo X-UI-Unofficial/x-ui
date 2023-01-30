@@ -48,7 +48,7 @@ require (
 	github.com/ugorji/go/codec v1.2.8 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/exp v0.0.0-20230127193734-31bee513bff7 // indirect
+	golang.org/x/exp v0.0.0-20230129154200-a960b3787bd2 // indirect
 	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20230127162408-596548ed4efa // indirect
